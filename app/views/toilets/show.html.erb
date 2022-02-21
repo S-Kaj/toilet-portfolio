@@ -57,3 +57,50 @@
 
 <%= link_to 'Edit', edit_toilet_path(@toilet) %> |
 <%= link_to 'Back', toilets_path %>
+
+
+<p>
+  <strong>取得した経度と緯度</strong>
+  <%= @toilet.latitude %>
+  <%= @toilet.longtitude %>
+  <br>
+  <%= @latlng %>
+</p>
+
+
+<input type="hidden" id="xyz" value="<%= @latlng %>">
+
+<!-- 以下、GoogleMAP API部分 -->
+<style>
+/* マップを表示する div 要素の高さを必ず明示的に指定します。 */
+#map {
+  height: 400px;
+  width: 600px;
+}
+</style>
+
+<div id="map"></div><!-- 地図を表示する div 要素（id="map"）-->
+
+<script>
+var map;
+//var aaa = 42.990;
+//var bbb = 141.551;
+//var aaa = latitude;
+//var bbb = longtitude;
+//var xyz = 'latitude' + ', ' + 'longtitude';
+function initMap() {
+  var myLatlng = new google.maps.LatLng('xyz').value;
+  //var myLatlng = new google.maps.LatLng(aaa, bbb);
+  //var myLatlng = new google.maps.LatLng(41.681167, 139.767052);
+
+  //インスタンスを作成
+  map = new google.maps.Map(document.getElementById('map'), {
+    //地図のオプション
+    //初期のズームレベル
+    zoom: 12,
+    //地図の中心点
+    center: myLatlng
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgk50-Uh4K60ddzGNY5yOcfx4clQMNYNU&callback=initMap" async defer></script>

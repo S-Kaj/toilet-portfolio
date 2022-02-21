@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_01_033653) do
+ActiveRecord::Schema.define(version: 2022_02_17_084624) do
 
   create_table "toilets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "toilet_name", null: false
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 2022_02_01_033653) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude", null: false
+    t.float "longtitude", null: false
     t.index ["user_id"], name: "index_toilets_on_user_id"
   end
 

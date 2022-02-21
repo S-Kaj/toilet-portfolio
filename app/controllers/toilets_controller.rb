@@ -9,6 +9,8 @@ class ToiletsController < ApplicationController
 
   # GET /toilets/1 or /toilets/1.json
   def show
+    @toilet = Toilet.find(params[:id])
+    @latlng = @toilet.latitude.to_s + ', ' + @toilet.longtitude.to_s
   end
 
   # GET /toilets/new
@@ -66,6 +68,6 @@ class ToiletsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def toilet_params
-      params.require(:toilet).permit(:toilet_name, :multipurpose, :m_urinal, :m_room, :m_washlet, :w_room, :w_washlet, :open_time, :close_time, :remark, :user_id)
+      params.require(:toilet).permit(:toilet_name, :multipurpose, :m_urinal, :m_room, :m_washlet, :w_room, :w_washlet, :open_time, :close_time, :remark, :latitude, :longtitude, :user_id)
     end
 end
