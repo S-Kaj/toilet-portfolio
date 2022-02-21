@@ -10,7 +10,8 @@ class ToiletsController < ApplicationController
   # GET /toilets/1 or /toilets/1.json
   def show
     @toilet = Toilet.find(params[:id])
-    @latlng = @toilet.latitude.to_s + ', ' + @toilet.longtitude.to_s
+    gon.latitude = @toilet.latitude
+    gon.longtitude = @toilet.longtitude
   end
 
   # GET /toilets/new

@@ -63,8 +63,6 @@
   <strong>取得した経度と緯度</strong>
   <%= @toilet.latitude %>
   <%= @toilet.longtitude %>
-  <br>
-  <%= @latlng %>
 </p>
 
 
@@ -83,23 +81,22 @@
 
 <script>
 var map;
-//var aaa = 42.990;
-//var bbb = 141.551;
-//var aaa = latitude;
-//var bbb = longtitude;
-//var xyz = 'latitude' + ', ' + 'longtitude';
+const latitude = gon.latitude;
+const longtitude = gon.longtitude;
 function initMap() {
-  var myLatlng = new google.maps.LatLng('xyz').value;
-  //var myLatlng = new google.maps.LatLng(aaa, bbb);
-  //var myLatlng = new google.maps.LatLng(41.681167, 139.767052);
-
+  var myLatlng = new google.maps.LatLng(latitude, longtitude);
   //インスタンスを作成
   map = new google.maps.Map(document.getElementById('map'), {
     //地図のオプション
     //初期のズームレベル
-    zoom: 12,
+    zoom: 17,
     //地図の中心点
     center: myLatlng
+  });
+  //マーカーの初期プロパティを指定
+  marker = new google.maps.Marker({
+    position: myLatlng,
+    map: map
   });
 }
 </script>

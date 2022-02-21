@@ -88,7 +88,7 @@
 }
 </style>
 
-<div id="map"></div><!-- 地図を表示する div 要素（id="map"）-->
+<div id="map"></div>
 
 <script>
 var map;
@@ -107,7 +107,7 @@ function initMap() {
   position: myLatlng,
   //ドラッグを許可
   draggable: true,
-  map: map,
+  map: map
  });
  //マーカーのドロップ（ドラッグ終了）時のイベント
  google.maps.event.addListener(marker, 'dragend', function(e) {
