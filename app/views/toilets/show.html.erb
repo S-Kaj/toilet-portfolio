@@ -80,11 +80,11 @@
 <div id="map"></div><!-- 地図を表示する div 要素（id="map"）-->
 
 <script>
-var map;
+let map;
 const latitude = gon.latitude;
 const longtitude = gon.longtitude;
 function initMap() {
-  var myLatlng = new google.maps.LatLng(latitude, longtitude);
+  let myLatlng = new google.maps.LatLng(latitude, longtitude);
   //インスタンスを作成
   map = new google.maps.Map(document.getElementById('map'), {
     //地図のオプション

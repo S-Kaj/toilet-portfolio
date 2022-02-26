@@ -56,41 +56,64 @@
 <!-- 以下、GooglemapAPIテスト記述 -->
 
 <h2>gmap</h2>
-<div id='map'></div>
+<div id='map_index'></div>
 
 <style>
-#map{
+#map_index{
   height: 400px;
 }
 </style>
 
 
 <script>
-let map;
-function initMap() {
- let myLatlng = new google.maps.LatLng(35.681167, 139.767052);
- //インスタンスを作成
- map = new google.maps.Map(document.getElementById('map'), {
-  //地図のオプション
-  //初期のズームレベル
-  zoom: 12,
-  //地図の中心点
-  center: myLatlng
- });
- //マーカーの初期プロパティを指定
- marker = new google.maps.Marker({
-  position: myLatlng,
-  //ドラッグを許可
-  draggable: true,
-  map: map
- });
- //マーカーのドロップ（ドラッグ終了）時のイベント
- google.maps.event.addListener(marker, 'dragend', function(e) {
-  //イベントの引数eの、プロパティ.latLngがmarkerの緯度経度。
-  document.getElementById( "target_latitude" ).value = e.latLng.lat(),
-  document.getElementById( "target_longtitude" ).value = e.latLng.lng()
- });
+var map
+var marker = [];
+var infoWindow = [];
+var markerData = gon.toilets; // コントローラーで定義したインスタンス変数を変数に代入
+var toilet_name = [];
+var toilet_lat = [];
+var toilet_lng = [];
+
+// GoogleMapを表示する関数(callback処理で呼び出される)
+function initMap(){
+  // ビューのid='map_index'の部分にGoogleMapを埋め込む
+  map = new google.maps.Map(document.getElementById('map_index'), {
+    center: { lat: 35.661, lng: 139.667 }, // 下北沢駅を中心
+    zoom: 12
+  });
+
+  // 繰り返し処理でマーカーと吹き出しを複数表示させる
+  for (var i = 0; i < markerData.length; i++) {
+    // 各地点の緯度経度を算出
+    markerLatLng = new google.maps.LatLng({
+      lat: markerData[i]['latitude'],
+      lng: markerData[i]['longitude']
+    });
+
+    // マーカーの表示
+    marker[i] = new google.maps.Marker({
+      position: markerLatLng,
+      map: map
+    });
+
+    // 吹き出しの表示
+    // let id = markerData[i]['id']
+    // toilet_name[i]= markerData[i]['name'];
+    // toilet_lat[i]= markerData[i]['latitude'];
+    // toilet_lng[i]= markerData[i]['longitude'];
+    // infoWindow[i] = new google.maps.InfoWindow({
+      // 吹き出しの中身, 引数で各属性の配列と配列番号を渡す
+    //  content: `<a href='/places/${ id }'>${ markerData[i]['name'] }</a><input type="button" value="追加" onclick="addPlace(toilet_name, toilet_lat, toilet_lng, ${i})">`
+    //});
+    markerEvent(i);
+  }
 }
-google.maps.event.addDomListener(window, 'load', initMap);
+
+// マーカーをクリックしたら吹き出しを表示
+// function markerEvent(i) {
+  // marker[i].addListener('click', function () {
+  //  infoWindow[i].open(map, marker[i]);
+  // });
+// }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgk50-Uh4K60ddzGNY5yOcfx4clQMNYNU&callback=initMap" async defer></script>

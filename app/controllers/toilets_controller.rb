@@ -5,6 +5,8 @@ class ToiletsController < ApplicationController
   def index
     @toilets = Toilet.all
     @users = User.all
+    gon.toilets = @toilets
+    # binding.pry
   end
 
   # GET /toilets/1 or /toilets/1.json
